@@ -29,7 +29,6 @@ CLOUD = pygame.image.load(os.path.join("Assets/Other", "Cloud.png"))
 
 BG = pygame.image.load(os.path.join("Assets/Other", "Track.png"))
 
-
 class Dinosaur:
     X_POS = 80
     Y_POS = 310
@@ -177,6 +176,7 @@ def main():
     font = pygame.font.Font('freesansbold.ttf', 20)
     obstacles = []
     death_count = 0
+    end_game = False
 
     def score():
         global points, game_speed
@@ -223,21 +223,28 @@ def main():
             obstacle.update()
             if player.dino_rect.colliderect(obstacle.rect):
                 pygame.time.delay(2000)
-                death_count += 1
-                menu(death_count)
+                # remove next line if the bug in def menu(death_count) gets fixed
+                end_game = True
+                #death_count += 1
+                #menu(death_count)
 
-        background()
+        if not end_game:
+            background()
+    
+            cloud.draw(SCREEN)
+            cloud.update()
+    
+            score()
+    
+            clock.tick(30)
+            pygame.display.update()
+        else:
+            pygame.quit()
 
-        cloud.draw(SCREEN)
-        cloud.update()
+# remove this if the bug in def menu(death_count) gets fixed
+main()
 
-        score()
-
-        clock.tick(30)
-        pygame.display.update()
-
-
-def menu(death_count):
+'''def menu(death_count):
     global points
     run = True
     while run:
@@ -264,4 +271,4 @@ def menu(death_count):
                 main()
 
 
-menu(death_count=0)
+menu(death_count=0)'''
