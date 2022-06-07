@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+
 pygame.init()
 
 # Global Constants
